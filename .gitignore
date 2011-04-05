@@ -1,0 +1,7 @@
+Makefile
+*.jpg
+*.bmp
+*.o
+*.user
+v4l2
+*.swp
