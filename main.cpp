@@ -8,11 +8,25 @@ int main(int argc, char *argv[])
 
     if( dev.open() == EXIT_SUCCESS ){
       vis.open(2);
+
       dev.setParam("Exposure, Auto", 1);
+
       dev.setParam("Exposure (Absolute)", 30);
-      vis.capture("x1.bmp");
+      vis.capture("/home/juan/Escritorio/x1.bmp");
+
+      dev.setParam("Exposure (Absolute)", 80);
+      vis.capture("/home/juan/Escritorio/x2.bmp");
+
+      dev.setParam("Exposure (Absolute)", 120);
+      vis.capture("/home/juan/Escritorio/x3.bmp");
+
+      dev.setParam("Exposure (Absolute)", 200);
+      vis.capture("/home/juan/Escritorio/x4.bmp");
+
+
       dev.close();
     }
 
-    return 1;
+
+    return EXIT_SUCCESS;
 }
