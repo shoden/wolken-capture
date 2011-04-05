@@ -13,6 +13,9 @@ int Device::open()
       fprintf(stderr, "No se pudo abrir el dispositivo %s: %s\n", dev.toUtf8().data(), strerror(errno));
       return EXIT_FAILURE;
   }
+
+  getParams();
+
   return EXIT_SUCCESS;
 }
 
