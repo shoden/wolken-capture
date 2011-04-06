@@ -12,6 +12,15 @@ DataBase::DataBase()
   logTable = "capturas";
   user = "root";
   password = "jrr360";
+
+  db = QSqlDatabase::addDatabase("QMYSQL");
+  db.setHostName(host);
+  db.setDatabaseName(bbdd);
+  db.setUserName(user);
+  db.setPassword(password);
+
+  if(!db.open())
+      error("No se ha podido conectar a la base de datos.");
 }
 
 void DataBase::error(const QString &msg)
@@ -22,16 +31,6 @@ void DataBase::error(const QString &msg)
 
 QStringList DataBase::getParams()
 {
-  QSqlDatabase db;
-   db = QSqlDatabase::addDatabase("QMYSQL");
-   db.setHostName(host);
-   db.setDatabaseName(bbdd);
-   db.setUserName(user);
-   db.setPassword(password);
-
-   if(!db.open())
-       error("No se ha podido conectar a la base de datos.");
-
    QSqlQuery query(QString("SELECT id, en FROM %1;").arg(paramsTable), db);
    if( query.size() == -1 )
        error( "No se pudo conectar con la base de datos" );
@@ -51,16 +50,6 @@ QStringList DataBase::getParams()
 
 Takes DataBase::getTakes()
 {
-  QSqlDatabase db;
-   db = QSqlDatabase::addDatabase("QMYSQL");
-   db.setHostName(host);
-   db.setDatabaseName(bbdd);
-   db.setUserName(user);
-   db.setPassword(password);
-
-   if(!db.open())
-       error("No se ha podido conectar a la base de datos.");
-
    QSqlQuery query(QString("SELECT * FROM %1;").arg(takesTable), db);
    if( query.size() == -1 )
        error( "No se pudo conectar con la base de datos" );
@@ -109,16 +98,6 @@ void DataBase::listTakes()
 
 void DataBase::log(const QString &values)
 {
-  QSqlDatabase db;
-   db = QSqlDatabase::addDatabase("QMYSQL");
-   db.setHostName(host);
-   db.setDatabaseName(bbdd);
-   db.setUserName(user);
-   db.setPassword(password);
-
-   if(!db.open())
-       error("No se ha podido conectar a la base de datos.");
-
    QSqlQuery query(QString("INSERT INTO %1 VALUES(%2);").arg(logTable).arg(values), db);
 
    query.exec();

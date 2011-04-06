@@ -14,11 +14,11 @@ int main(int argc, char *argv[])
     QStringList plist = db.getParams();
     Takes takes = db.getTakes();
     QDateTime now = QDateTime::currentDateTime();
-    dev.setBaseDir(QString(IMG_DIR).append(now.toString("/yyyy-MM-dd/hhmm/")));
+    dev.setBaseDir(QString(IMG_DIR).append(now.toString("yyyy-MM-dd/hhmm/")));
 
     // Para cada captura de la toma
     for (int i = 0; i < takes.size(); i++) {
-      cout << endl << "*** Toma " << takes.at(i).value("id").toUtf8().data() << endl;
+     // cout << endl << "*** Toma " << takes.at(i).value("id").toUtf8().data() << endl;
       QString log = now.toString("\"yyyy-MM-dd\"") + ", " + now.toString("\"hh:mm:ss\"");
       log += ", " + takes.at(i).value("id");
 
@@ -32,13 +32,9 @@ int main(int argc, char *argv[])
         log += ", " + QString::number(val);
       }
 
-      // Capturar imagen
-      QString path = QString("/").append(QString(takes.at(i).value("id"))).append(".bmp");
-
+      // Capturar y guardar imagen
+      QString path = QString("/").append(QString(takes.at(i).value("id")).rightJustified(2,'0')).append(".bmp");
       dev.capture(path);
-
-      // Crear la miniatura
-      cout << "thumb(\"DIR/" << takes.at(i).value("id").toUtf8().data() << ".bmp\")" << endl;
 
       // Crear el log
       db.log(log);

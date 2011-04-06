@@ -28,6 +28,7 @@ private:
   QString host;
   QString bbdd;
   QString paramsTable, takesTable, logTable;
+  QSqlDatabase db;
 
   Params params;
   Takes takes;

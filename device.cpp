@@ -76,7 +76,12 @@ int Device::capture(const QString &file)
     exit(EXIT_FAILURE);
   }
 
-  return 0;
+  // Crear miniatura
+  QString cmd = QString("convert %1%2 -resize 120x90 %1/thumbs%2").arg(dir.path()).arg(file);
+ // cout << cmd.toUtf8().data() << endl;
+  int ret = system(cmd.toUtf8().data());
+
+  return ret;
 }
 
 void Device::close()
@@ -206,7 +211,7 @@ bool Device::setBaseDir(const QString &d)
   dir.setPath(d);
 
   if(!dir.exists())
-    return dir.mkpath(d);
+    return (dir.mkpath(d) && dir.mkpath(QString(d).append("thumbs/")));
 
   return true;
 }
