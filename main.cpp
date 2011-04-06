@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
       dev.setParam("Exposure (Absolute)", 1000);
       dev.capture("/home/juan/Escritorio/x4.bmp");
 */
-      dev.close();
+
     }
     else
       return EXIT_FAILURE;
@@ -44,12 +44,18 @@ int main(int argc, char *argv[])
               cout << "setParam(\"Exposure, Auto\", 1);" << endl;
 
             cout << "setParam(\"" << it.key().toUtf8().data() << "\", " << it.value().toUtf8().data() << ");" << endl;
+            dev.setParam(it.key(), it.value().toInt());
           }
       }
       cout << "capture(\"DIR/" << takes.at(i).value("id").toUtf8().data() << ".bmp\")" << endl;
+
+      dev.capture(QString(takes.at(i).value("id")).append(".bmp").toUtf8().data());
+
       cout << "thumb(\"DIR/" << takes.at(i).value("id").toUtf8().data() << ".bmp\")" << endl;
       cout << "db.log(" << takes.at(i).value("id").toUtf8().data() << ")" << endl;
     }
+
+    dev.close();
 
     return EXIT_SUCCESS;
 }
