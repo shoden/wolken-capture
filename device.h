@@ -33,6 +33,7 @@ public:
     void setROI(int x, int y, int width, int height);
     void resetROI();
     int capture(const QString &file);
+    bool setBaseDir(const QString &d);
 
 private:
     //! Descriptor del dispositivo de vídeo
@@ -45,6 +46,7 @@ private:
     CvCapture *cap;
     bool roi;
     CvRect roiRect;
+    QDir dir;
 };
 
 #endif // DEVICE_H

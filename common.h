@@ -10,6 +10,7 @@
 
 // Qt
 #include <QDateTime>
+#include <QDir>
 #include <QList>
 #include <QHash>
 #include <QHashIterator>
@@ -21,5 +22,7 @@ using namespace std;
 
 typedef QHash<QString,QString> Params;
 typedef QList<Params> Takes;
+
+#define IMG_DIR "/home/juan/img/wolken/"
 
 #endif // COMMON_H

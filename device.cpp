@@ -70,7 +70,8 @@ int Device::capture(const QString &file)
     cvSetImageROI(img, roiRect);
 
   // Guardar imagen
-  if( !cvSaveImage( file.toUtf8().data(), img) ) {
+  cout << "F:" << dir.path().append(file).toUtf8().data() << endl;
+  if( !cvSaveImage( dir.path().append(file).toUtf8().data(), img) ) {
     fprintf(stderr,"No se pudo guardar la imagen\n");
     exit(EXIT_FAILURE);
   }
@@ -200,3 +201,12 @@ int Device::setParam(const QString &name, int value)
   return EXIT_SUCCESS;
 }
 
+bool Device::setBaseDir(const QString &d)
+{
+  dir.setPath(d);
+
+  if(!dir.exists())
+    return dir.mkpath(d);
+
+  return true;
+}
