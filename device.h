@@ -30,6 +30,8 @@ public:
     void getParams();
     int setParam(const QString &name, int value);
     void listParams();
+    void setROI(int x, int y, int width, int height);
+    void resetROI();
     int capture(const QString &file);
 
 private:
@@ -41,6 +43,8 @@ private:
     QMap<QString, int> params;
     //! Dispositivo de vídeo
     CvCapture *cap;
+    bool roi;
+    CvRect roiRect;
 };
 
 #endif // DEVICE_H

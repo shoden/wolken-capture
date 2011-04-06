@@ -4,6 +4,7 @@ Device::Device(const QString &d)
 {
   device = d;
   cap = 0;
+  roi = false;
 }
 
 void Device::setDevice(const QString &d)
@@ -33,6 +34,17 @@ int Device::open()
   return EXIT_SUCCESS;
 }
 
+void Device::setROI(int x, int y, int width, int height)
+{
+  roiRect = cvRect(x, y, width, height);
+  roi = true;
+}
+
+void Device::resetROI()
+{
+  roi = false;
+}
+
 int Device::capture(const QString &file)
 {
   // Variables
@@ -49,8 +61,9 @@ int Device::capture(const QString &file)
     exit(EXIT_FAILURE);
   }
 
- // CvRect rect = cvRect(50, 60, 400, 300);
- // cvSetImageROI(img, rect);
+  // ROI
+  if(roi)
+    cvSetImageROI(img, roiRect);
 
   // Guardar imagen
   if( !cvSaveImage( file.toUtf8().data(), img) ) {

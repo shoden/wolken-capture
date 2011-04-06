@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
     if( dev.open() != EXIT_SUCCESS )
       return EXIT_FAILURE;
 
+    //dev.setROI(50, 50, 320, 240);
     DataBase db;
     db.getParams();
     Takes takes = db.getTakes();
