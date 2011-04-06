@@ -8,16 +8,16 @@ int main(int argc, char *argv[])
 
       dev.setParam("Exposure, Auto", 1);
 
-      dev.setParam("Exposure (Absolute)", 30);
+      dev.setParam("Exposure (Absolute)", 100);
       dev.capture("/home/juan/Escritorio/x1.bmp");
 
-      dev.setParam("Exposure (Absolute)", 80);
+      dev.setParam("Exposure (Absolute)", 400);
       dev.capture("/home/juan/Escritorio/x2.bmp");
 
-      dev.setParam("Exposure (Absolute)", 120);
+      dev.setParam("Exposure (Absolute)", 700);
       dev.capture("/home/juan/Escritorio/x3.bmp");
 
-      dev.setParam("Exposure (Absolute)", 200);
+      dev.setParam("Exposure (Absolute)", 1000);
       dev.capture("/home/juan/Escritorio/x4.bmp");
 
       dev.close();

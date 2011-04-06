@@ -3,7 +3,6 @@
 Device::Device(const QString &d)
 {
   device = d;
-  dev = 2;
   cap = 0;
 }
 
@@ -25,9 +24,9 @@ int Device::open()
   getParams();
 
   // OpenCV
-  cap = cvCaptureFromCAM( dev );
+  cap = cvCaptureFromCAM( device.right(1).toInt() );
   if( !cap ) {
-    fprintf(stderr,"No se pudo conectar con el dispositivo /dev/video%d\n", dev);
+    fprintf(stderr,"No se pudo conectar con el dispositivo /dev/video%d\n", device.right(1).toInt());
     exit(EXIT_FAILURE);
   }
 

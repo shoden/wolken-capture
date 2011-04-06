@@ -42,11 +42,14 @@ public:
     int capture(const QString &file);
 
 private:
-    int fd, ret;
+    //! Descriptor del dispositivo de vídeo
+    int fd;
+    //! Número del dispositivo de vídeo
     QString device;
+    //! Lista de parámetros (nombre, id)
     QMap<QString, int> params;
-    CvCapture *cap; // Dispositivo de vídeo
-    int        dev; // Número del dispositivo de vídeo
+    //! Dispositivo de vídeo
+    CvCapture *cap;
 };
 
 #endif // DEVICE_H
