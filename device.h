@@ -1,6 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+// C
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -13,8 +14,14 @@
 #include <linux/types.h>
 #include <linux/videodev.h>
 #include <libv4l2.h>
+
+// C++
 #include <iostream>
 
+// OpenCV
+#include <highgui.h>
+
+// Qt4
 #include <QString>
 #include <QMap>
 #include <QMapIterator>
@@ -31,11 +38,14 @@ public:
     void getParams();
     int setParam(const QString &name, int value);
     void listParams();
+    int capture(const QString &file);
 
 private:
     int fd, ret;
-    QString dev;
+    QString device;
     QMap<QString, int> params;
+    CvCapture *cap; // Dispositivo de vídeo
+    int        dev; // Número del dispositivo de vídeo
 };
 
 #endif // DEVICE_H

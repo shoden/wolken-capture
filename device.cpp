@@ -2,21 +2,59 @@
 
 Device::Device()
 {
-  dev = "/dev/video2";
+  device = "/dev/video2";
+  dev = 2;
+  cap = 0;
 }
 
 int Device::open()
 {
-  fd = v4l2_open(dev.toUtf8().data() , O_RDWR, 0);
+  // V4L2
+  fd = v4l2_open(device.toUtf8().data() , O_RDWR, 0);
 
   if(fd < 0) {
-      fprintf(stderr, "No se pudo abrir el dispositivo %s: %s\n", dev.toUtf8().data(), strerror(errno));
-      return EXIT_FAILURE;
+      fprintf(stderr, "No se pudo abrir el dispositivo %s: %s\n", device.toUtf8().data(), strerror(errno));
+      exit(EXIT_FAILURE);
   }
 
   getParams();
 
+  // OpenCV
+  cap = cvCaptureFromCAM( dev );
+  if( !cap ) {
+    fprintf(stderr,"No se pudo conectar con el dispositivo /dev/video%d\n", dev);
+    exit(EXIT_FAILURE);
+  }
+
   return EXIT_SUCCESS;
+}
+
+int Device::capture(const QString &file)
+{
+  // Variables
+  IplImage  *img = 0; // Imagen a capturar
+
+  // Captura de imagen
+  img = cvQueryFrame( cap );
+  img = cvQueryFrame( cap );
+  img = cvQueryFrame( cap );
+  img = cvQueryFrame( cap );
+  img = cvQueryFrame( cap );
+  if( !img ) {
+    fprintf(stderr,"No se pudo capturar la imagen\n");
+    exit(EXIT_FAILURE);
+  }
+
+ // CvRect rect = cvRect(50, 60, 400, 300);
+ // cvSetImageROI(img, rect);
+
+  // Guardar imagen
+  if( !cvSaveImage( file.toUtf8().data(), img) ) {
+    fprintf(stderr,"No se pudo guardar la imagen\n");
+    exit(EXIT_FAILURE);
+  }
+
+  return 0;
 }
 
 void Device::close()
@@ -130,11 +168,11 @@ int Device::setParam(const QString &name, int value)
     c.id = params.value(name);
     c.value = value;
     if(v4l2_ioctl(fd, VIDIOC_S_CTRL, &c) != 0) {
-      fprintf(stderr, "Failed to set control \"%s\": %s\n", name, strerror(errno));
+      fprintf(stderr, "Failed to set control \"%s\": %s\n", name.toUtf8().data(), strerror(errno));
     }
   }
   else {
-    fprintf(stderr, "Error querying control %s: %s\n", name, strerror(errno));
+    fprintf(stderr, "Error querying control %s: %s\n", name.toUtf8().data(), strerror(errno));
     return EXIT_FAILURE;
  }
 
