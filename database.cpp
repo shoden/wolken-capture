@@ -9,6 +9,7 @@ DataBase::DataBase()
   bbdd = "nubes";
   takesTable = "tomas";
   paramsTable = "parametros";
+  logTable = "capturas";
   user = "root";
   password = "jrr360";
 }
@@ -19,7 +20,7 @@ void DataBase::error(const QString &msg)
   exit(EXIT_FAILURE);
 }
 
-void DataBase::getParams()
+QStringList DataBase::getParams()
 {
   QSqlDatabase db;
    db = QSqlDatabase::addDatabase("QMYSQL");
@@ -35,19 +36,17 @@ void DataBase::getParams()
    if( query.size() == -1 )
        error( "No se pudo conectar con la base de datos" );
 
+   QStringList plist;
+
    while (query.next()) {
      QString id = query.value(0).toString();
      QString en = query.value(1).toString();
 
+     plist << en << id;
      params.insert(id, en);
    }
-/*
-   QMapIterator<QString, QString> it(params);
-   while (it.hasNext()) {
-       it.next();
-       cout << it.key().toUtf8().data() << ": " << it.value().toUtf8().data() << endl;
-   }
-*/
+
+   return plist;
 }
 
 Takes DataBase::getTakes()
@@ -76,7 +75,7 @@ Takes DataBase::getTakes()
        take.insert( "id", query.value(0).toString() );
 
        // Parámetros
-       QMapIterator<QString, QString> it(params);
+       QHashIterator<QString, QString> it(params);
        while (it.hasNext()) {
          it.next();
          int num = query.record().indexOf(it.key());
@@ -99,11 +98,28 @@ void DataBase::listTakes()
   for (int i = 0; i < takes.size(); i++) {
     cout << "*** Toma" << i+1 << endl;
 
-    QMapIterator<QString, QString> it(takes.at(i));
+    QHashIterator<QString, QString> it(takes.at(i));
     while (it.hasNext()) {
         it.next();
         cout << it.key().toUtf8().data() << ": " << it.value().toUtf8().data() << " # ";
     }
     cout << endl;
   }
+}
+
+void DataBase::log(const QString &values)
+{
+  QSqlDatabase db;
+   db = QSqlDatabase::addDatabase("QMYSQL");
+   db.setHostName(host);
+   db.setDatabaseName(bbdd);
+   db.setUserName(user);
+   db.setPassword(password);
+
+   if(!db.open())
+       error("No se ha podido conectar a la base de datos.");
+
+   QSqlQuery query(QString("INSERT INTO %1 VALUES(%2);").arg(logTable).arg(values), db);
+
+   query.exec();
 }

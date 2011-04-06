@@ -9,15 +9,17 @@
 #include <iostream>
 
 // Qt
+#include <QDateTime>
 #include <QList>
-#include <QMap>
-#include <QMapIterator>
+#include <QHash>
+#include <QHashIterator>
 #include <QString>
+#include <QStringList>
 #include <QVariant>
 
 using namespace std;
 
-typedef QMap<QString,QString> Params;
+typedef QHash<QString,QString> Params;
 typedef QList<Params> Takes;
 
 #endif // COMMON_H

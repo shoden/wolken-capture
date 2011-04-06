@@ -19,7 +19,7 @@ int Device::open()
 
   if(fd < 0) {
       fprintf(stderr, "No se pudo abrir el dispositivo %s: %s\n", device.toUtf8().data(), strerror(errno));
-      exit(EXIT_FAILURE);
+      return EXIT_FAILURE;
   }
 
   getParams();
@@ -28,7 +28,7 @@ int Device::open()
   cap = cvCaptureFromCAM( device.right(1).toInt() );
   if( !cap ) {
     fprintf(stderr,"No se pudo conectar con el dispositivo /dev/video%d\n", device.right(1).toInt());
-    exit(EXIT_FAILURE);
+    return EXIT_FAILURE;
   }
 
   return EXIT_SUCCESS;
@@ -51,6 +51,10 @@ int Device::capture(const QString &file)
   IplImage  *img = 0; // Imagen a capturar
 
   // Captura de imagen
+  img = cvQueryFrame( cap );
+  img = cvQueryFrame( cap );
+  img = cvQueryFrame( cap );
+  img = cvQueryFrame( cap );
   img = cvQueryFrame( cap );
   img = cvQueryFrame( cap );
   img = cvQueryFrame( cap );

@@ -4,38 +4,41 @@
 
 int main(int argc, char *argv[])
 {
-    Device dev("/dev/video2");
+    Device dev("/dev/video0");
 
     if( dev.open() != EXIT_SUCCESS )
       return EXIT_FAILURE;
 
     //dev.setROI(50, 50, 320, 240);
     DataBase db;
-    db.getParams();
+    QStringList plist = db.getParams();
     Takes takes = db.getTakes();
+    QDateTime now = QDateTime::currentDateTime();
 
+    // Para cada captura de la toma
     for (int i = 0; i < takes.size(); i++) {
       cout << endl << "*** Toma " << takes.at(i).value("id").toUtf8().data() << endl;
+      QString log = now.toString("\"yyyy-MM-dd\"") + ", " + now.toString("\"hh:mm:ss\"");
+      log += ", " + takes.at(i).value("id");
 
-      QMapIterator<QString, QString> it(takes.at(i));
-      while (it.hasNext()) {
-          it.next();
-          if(it.key() != "id"){
-            if(it.key() == "Exposure (Absolute)"){
-              cout << "setParam(\"Exposure, Auto\", 1);" << endl;
-              dev.setParam("Exposure, Auto", 1);
-            }
-
-            cout << "setParam(\"" << it.key().toUtf8().data() << "\", " << it.value().toUtf8().data() << ");" << endl;
-            dev.setParam(it.key(), it.value().toInt());
-          }
+      // Establecer los parámetros de la cámara
+      Params take = takes.at(i);
+      for (int p = 0; p < plist.size(); ++p){
+        QString par = plist.at(p++);
+        int val = take.value(par).toInt();
+       // cout << "> setParam(" << par.toUtf8().data() << ", " << val << ")" << endl;
+        dev.setParam(par, val);
+        log += ", " + QString::number(val);
       }
-      cout << "capture(\"DIR/" << takes.at(i).value("id").toUtf8().data() << ".bmp\")" << endl;
 
+      // Capturar imagen
       dev.capture(QString(takes.at(i).value("id")).append(".bmp").toUtf8().data());
 
+      // Crear la miniatura
       cout << "thumb(\"DIR/" << takes.at(i).value("id").toUtf8().data() << ".bmp\")" << endl;
-      cout << "db.log(" << takes.at(i).value("id").toUtf8().data() << ")" << endl;
+
+      // Crear el log
+      db.log(log);
     }
 
     dev.close();

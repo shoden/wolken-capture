@@ -14,9 +14,10 @@ class DataBase
 public:
   DataBase();
 
-  void getParams();
+  QStringList getParams();
   Takes getTakes();
   void listTakes();
+  void log(const QString &);
 
 protected:
   void error(const QString &msg);
@@ -26,7 +27,7 @@ private:
   QString password;
   QString host;
   QString bbdd;
-  QString paramsTable, takesTable;
+  QString paramsTable, takesTable, logTable;
 
   Params params;
   Takes takes;
