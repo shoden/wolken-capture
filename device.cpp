@@ -77,7 +77,7 @@ int Device::capture(const QString &file)
   }
 
   // Crear miniatura
-  QString cmd = QString("convert %1%2 -resize 120x90 %1/thumbs%2").arg(dir.path()).arg(file);
+  QString cmd = QString("convert %1%2 -resize 128x96 %1/thumbs%2").arg(dir.path()).arg(file);
  // cout << cmd.toUtf8().data() << endl;
   int ret = system(cmd.toUtf8().data());
 
