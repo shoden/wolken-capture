@@ -31,10 +31,11 @@ using namespace std;
 class Device
 {
 public:
-    Device();
+    Device(const QString &d);
 
     int open();
     void close();
+    void setDevice(const QString &d);
     void getParams();
     int setParam(const QString &name, int value);
     void listParams();

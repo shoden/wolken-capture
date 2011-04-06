@@ -1,10 +1,15 @@
 #include "device.h"
 
-Device::Device()
+Device::Device(const QString &d)
 {
-  device = "/dev/video2";
+  device = d;
   dev = 2;
   cap = 0;
+}
+
+void Device::setDevice(const QString &d)
+{
+  device = d;
 }
 
 int Device::open()

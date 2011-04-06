@@ -1,9 +1,8 @@
 #include "device.h"
-#include "vision.h"
 
 int main(int argc, char *argv[])
 {
-    Device dev;
+    Device dev("/dev/video2");
 
     if( dev.open() == EXIT_SUCCESS ){
 
@@ -23,7 +22,6 @@ int main(int argc, char *argv[])
 
       dev.close();
     }
-
 
     return EXIT_SUCCESS;
 }
