@@ -1,3 +1,5 @@
+QT += sql
+QT -= gui
 LIBS += -lv4l2 \
     -lcv \
     -lhighgui \
@@ -5,6 +7,9 @@ LIBS += -lv4l2 \
     -lml \
     -lcxcore
 INCLUDEPATH += /usr/include/opencv
-HEADERS += device.h
+HEADERS += device.h \
+    database.h \
+    common.h
 SOURCES += device.cpp \
-    main.cpp
+    main.cpp \
+    database.cpp

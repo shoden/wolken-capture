@@ -1,11 +1,11 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include <common.h>
+
 // C
 #include <errno.h>
 #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -15,18 +15,9 @@
 #include <linux/videodev.h>
 #include <libv4l2.h>
 
-// C++
-#include <iostream>
-
 // OpenCV
 #include <highgui.h>
 
-// Qt4
-#include <QString>
-#include <QMap>
-#include <QMapIterator>
-
-using namespace std;
 
 class Device
 {
