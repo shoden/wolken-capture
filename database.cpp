@@ -5,13 +5,17 @@ DataBase::DataBase()
   if(!QSqlDatabase::isDriverAvailable("QMYSQL"))
     error("Driver Mysql no disponible.");
 
-  host = "localhost";
-  bbdd = "nubes";
-  takesTable = "tomas";
-  paramsTable = "parametros";
-  logTable = "capturas";
-  user = "root";
-  password = "jrr360";
+  // Archivo de configuración
+  QSettings settings(QSettings::SystemScope, "wolken", "wolken");
+  settings.beginGroup( "Database" );
+  host = settings.value( "host", "" ).toString();
+  bbdd = settings.value( "bbdd", "" ).toString();
+  takesTable = settings.value( "takesTable", "" ).toString();
+  paramsTable = settings.value( "paramsTable", "" ).toString();
+  logTable = settings.value( "logTable", "" ).toString();
+  user = settings.value( "user", "" ).toString();
+  password = settings.value( "password", "" ).toString();
+  settings.endGroup();
 
   db = QSqlDatabase::addDatabase("QMYSQL");
   db.setHostName(host);
