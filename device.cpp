@@ -72,7 +72,7 @@ int Device::capture(const QString &file)
     cvSetImageROI(img, roiRect);
 
   // Guardar imagen
-  cout << "F:" << dir.path().append(file).toUtf8().data() << endl;
+  //cout << dir.path().append(file).toUtf8().data() << endl;
   if( !cvSaveImage( dir.path().append(file).toUtf8().data(), img) ) {
     fprintf(stderr,"No se pudo guardar la imagen\n");
     exit(EXIT_FAILURE);
@@ -97,7 +97,7 @@ void Device::getParams()
   struct v4l2_control c;
 
 #ifdef V4L2_CTRL_FLAG_NEXT_CTRL
-  /* Intentar primero la API de control extendida */
+  // Intentar primero la API de control extendida
   ctrl.id = V4L2_CTRL_FLAG_NEXT_CTRL;
   if(0 == v4l2_ioctl (fd, VIDIOC_QUERYCTRL, &ctrl)) {
     do {
@@ -118,7 +118,7 @@ void Device::getParams()
   } else
 #endif
   {
-    /* Comprobar todos los controles estándard */
+    // Comprobar todos los controles estándard
     for(i=V4L2_CID_BASE; i<V4L2_CID_LASTP1; i++) {
       ctrl.id = i;
       if(v4l2_ioctl(fd, VIDIOC_QUERYCTRL, &ctrl) == 0) {
@@ -137,7 +137,7 @@ void Device::getParams()
       }
     }
 
-    /* Comprobar los posibles controles personalizados */
+    // Comprobar los posibles controles personalizados
     for(i=V4L2_CID_PRIVATE_BASE; ; i++) {
       ctrl.id = i;
       if(v4l2_ioctl(fd, VIDIOC_QUERYCTRL, &ctrl) == 0) {
@@ -179,7 +179,7 @@ int Device::setParam(const QString &name, int value)
 
   ctrl.id = params.value(name);
 
-  cout << " > setParam(" << name.toUtf8().data() << ", " << value << ")" << endl;
+  //cout << " > setParam(" << name.toUtf8().data() << ", " << value << ")" << endl;
 
   if(v4l2_ioctl(fd, VIDIOC_QUERYCTRL, &ctrl) == 0) {
     c.id = params.value(name);
