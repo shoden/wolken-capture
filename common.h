@@ -14,6 +14,7 @@
 #include <QList>
 #include <QHash>
 #include <QHashIterator>
+#include <QSettings>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
@@ -22,7 +23,5 @@ using namespace std;
 
 typedef QHash<QString,QString> Params;
 typedef QList<Params> Takes;
-
-#define IMG_DIR "/home/juan/img/wolken/"
 
 #endif // COMMON_H

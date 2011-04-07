@@ -32,7 +32,7 @@ public:
     void listParams();
     void setROI(int x, int y, int width, int height);
     void resetROI();
-    int capture(const QString &file);
+    int capture(const QString &file, int thumbWidth, int thumbHeight);
     bool setBaseDir(const QString &d);
 
 private:

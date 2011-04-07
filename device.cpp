@@ -45,7 +45,7 @@ void Device::resetROI()
   roi = false;
 }
 
-int Device::capture(const QString &file)
+int Device::capture(const QString &file, int thumbWidth, int thumbHeight)
 {
   // Variables
   IplImage  *img = 0; // Imagen a capturar
@@ -79,7 +79,7 @@ int Device::capture(const QString &file)
   }
 
   // Crear miniatura
-  QString cmd = QString("convert %1%2 -resize 128x96 %1/thumbs%2").arg(dir.path()).arg(file);
+  QString cmd = QString("convert %1%2 -resize %3x%4 %1/thumbs%2").arg(dir.path()).arg(file).arg(thumbWidth).arg(thumbHeight);
   int ret = system(cmd.toUtf8().data());
 
   return ret;

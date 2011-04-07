@@ -4,10 +4,22 @@
 
 int main(int argc, char *argv[])
 {
-  // Dispositivo por defecto
-  QString d = "/dev/video0";
   opterr = 0;
   int c;
+
+  // Archivo de configuración
+  QSettings settings(QSettings::SystemScope, "wolken", "wolken");
+  settings.beginGroup( "Main" );
+  QString d = settings.value( "device", "/dev/video0" ).toString();
+  QString IMGPATH = settings.value( "imgpath", "/home/juan/img/wolken/" ).toString();
+  bool roi = settings.value( "roi", 0 ).toBool();
+  int roi_x = settings.value( "roi_x", 0 ).toInt();
+  int roi_y = settings.value( "roi_y", 0 ).toInt();
+  int roi_width = settings.value( "roi_width", 640 ).toInt();
+  int roi_height = settings.value( "roi_height", 480 ).toInt();
+  int thumb_width = settings.value( "thumb_width", 128 ).toInt();
+  int thumb_height = settings.value( "thumb_height", 96 ).toInt();
+  settings.endGroup();
 
   // Procesar los argumentos
   while ((c = getopt (argc, argv, "d:")) != -1)
@@ -42,10 +54,11 @@ int main(int argc, char *argv[])
 
   // Obtener fecha actual
   QDateTime now = QDateTime::currentDateTime();
-  dev.setBaseDir(QString(IMG_DIR).append(now.toString("yyyy-MM-dd/hhmm/")));
+  dev.setBaseDir(QString(IMGPATH).append(now.toString("yyyy-MM-dd/hhmm/")));
 
   // Establecer región de interés de la imagen
-  //dev.setROI(50, 50, 320, 240);
+  if(roi)
+    dev.setROI(roi_x, roi_y, roi_width, roi_height);
 
   // Para cada captura de la toma
   for (int i = 0; i < takes.size(); i++) {
@@ -68,7 +81,7 @@ int main(int argc, char *argv[])
 
     // Capturar y guardar imagen
     QString path = QString("/").append(QString(takes.at(i).value("id")).rightJustified(2,'0')).append(".bmp");
-    dev.capture(path);
+    dev.capture(path, thumb_width, thumb_width);
 
     // Crear registro en el log
     db.log(log);
