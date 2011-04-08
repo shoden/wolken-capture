@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 
     // Capturar y guardar imagen
     QString path = QString("/").append(QString(takes.at(i).value("id")).rightJustified(2,'0')).append(".bmp");
-    dev.capture(path, thumb_width, thumb_width);
+    dev.capture(path, thumb_width, thumb_height);
 
     // Crear registro en el log
     db.log(log);
