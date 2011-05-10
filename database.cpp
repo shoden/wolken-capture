@@ -12,6 +12,7 @@ DataBase::DataBase()
   bbdd = settings.value( "bbdd", "" ).toString();
   takesTable = settings.value( "takesTable", "" ).toString();
   paramsTable = settings.value( "paramsTable", "" ).toString();
+  roiTable = settings.value( "roiTable", "" ).toString();
   logTable = settings.value( "logTable", "" ).toString();
   user = settings.value( "user", "" ).toString();
   password = settings.value( "password", "" ).toString();
@@ -84,6 +85,24 @@ Takes DataBase::getTakes()
 
    // Devolver la lista de tomas habilitadas
    return takes;
+}
+
+Params DataBase::getROI()
+{
+   QSqlQuery query(QString("SELECT * FROM %1;").arg(roiTable), db);
+   if( query.size() == -1 )
+       error( "No se pudo conectar con la base de datos" );
+
+   Params roiParams;
+   if(query.next()) {
+     roiParams.insert("habilitado", query.value(0).toString());
+     roiParams.insert("x1", query.value(1).toString());
+     roiParams.insert("x2", query.value(2).toString());
+     roiParams.insert("y1", query.value(3).toString());
+     roiParams.insert("y2", query.value(4).toString());
+   };
+
+   return roiParams;
 }
 
 void DataBase::listTakes()

@@ -12,11 +12,6 @@ int main(int argc, char *argv[])
   settings.beginGroup( "Main" );
   QString d = settings.value( "device", "/dev/video0" ).toString();
   QString IMGPATH = settings.value( "imgpath", "/home/juan/img/wolken/" ).toString();
-  bool roi = settings.value( "roi", 0 ).toBool();
-  int roi_x = settings.value( "roi_x", 0 ).toInt();
-  int roi_y = settings.value( "roi_y", 0 ).toInt();
-  int roi_width = settings.value( "roi_width", 640 ).toInt();
-  int roi_height = settings.value( "roi_height", 480 ).toInt();
   int thumb_width = settings.value( "thumb_width", 128 ).toInt();
   int thumb_height = settings.value( "thumb_height", 96 ).toInt();
   settings.endGroup();
@@ -56,9 +51,16 @@ int main(int argc, char *argv[])
   QDateTime now = QDateTime::currentDateTime();
   dev.setBaseDir(QString(IMGPATH).append(now.toString("yyyy-MM-dd/hhmm/")));
 
-  // Establecer región de interés de la imagen
-  if(roi)
+  // Establecer la región de interés de la imagen
+  Params roiParams = db.getROI();
+  bool roi = (roiParams.value("habilitado").compare("1") == 0) ? true : false;
+  if(roi){
+    int roi_x = roiParams.value("x1").toInt();
+    int roi_y = roiParams.value("y1").toInt();
+    int roi_width = roiParams.value("x2").toInt() - roi_x;
+    int roi_height = roiParams.value("y2").toInt() - roi_y;
     dev.setROI(roi_x, roi_y, roi_width, roi_height);
+  };
 
   // Para cada captura de la toma
   for (int i = 0; i < takes.size(); i++) {

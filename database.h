@@ -18,6 +18,7 @@ public:
   Takes getTakes();
   void listTakes();
   void log(const QString &);
+  Params getROI();
 
 protected:
   void error(const QString &msg);
@@ -27,7 +28,7 @@ private:
   QString password;
   QString host;
   QString bbdd;
-  QString paramsTable, takesTable, logTable;
+  QString paramsTable, takesTable, logTable, roiTable;
   QSqlDatabase db;
 
   Params params;
