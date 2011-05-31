@@ -5,6 +5,7 @@ Device::Device(const QString &d)
   device = d;
   cap = 0;
   roi = false;
+  tries = 10;
 }
 
 void Device::setDevice(const QString &d)
@@ -51,18 +52,10 @@ int Device::capture(const QString &file, int thumbWidth, int thumbHeight)
   IplImage  *img = 0; // Imagen a capturar
 
   // Captura de imagen
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
-  img = cvQueryFrame( cap );
+  for(int i=0; i<tries; i++)
+    img = cvQueryFrame( cap );
 
-  if( !img ) {
+  if(!img) {
     fprintf(stderr,"No se pudo capturar la imagen\n");
     exit(EXIT_FAILURE);
   }
@@ -73,7 +66,7 @@ int Device::capture(const QString &file, int thumbWidth, int thumbHeight)
 
   // Guardar imagen
   //cout << dir.path().append(file).toUtf8().data() << endl;
-  if( !cvSaveImage( dir.path().append(file).toUtf8().data(), img) ) {
+  if(!cvSaveImage(dir.path().append(file).toUtf8().data(), img)) {
     fprintf(stderr,"No se pudo guardar la imagen\n");
     exit(EXIT_FAILURE);
   }
@@ -205,3 +198,10 @@ bool Device::setBaseDir(const QString &d)
 
   return true;
 }
+
+void Device::setTries(int t)
+{
+  tries = t;
+}
+
+

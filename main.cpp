@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
   QString IMGPATH = settings.value( "imgpath", "/home/juan/img/wolken/" ).toString();
   int thumb_width = settings.value( "thumb_width", 128 ).toInt();
   int thumb_height = settings.value( "thumb_height", 96 ).toInt();
+  int tries = settings.value( "capture_tries", 10 ).toInt();
   settings.endGroup();
 
   // Procesar los argumentos
@@ -61,6 +62,9 @@ int main(int argc, char *argv[])
     int roi_height = roiParams.value("y2").toInt() - roi_y;
     dev.setROI(roi_x, roi_y, roi_width, roi_height);
   };
+
+  // Establecer el número de intentos para cada captura
+  dev.setTries(tries);
 
   // Para cada captura de la toma
   for (int i = 0; i < takes.size(); i++) {

@@ -34,6 +34,7 @@ public:
     void resetROI();
     int capture(const QString &file, int thumbWidth, int thumbHeight);
     bool setBaseDir(const QString &d);
+    void setTries(int t);
 
 private:
     //! Descriptor del dispositivo de vídeo
@@ -47,6 +48,8 @@ private:
     bool roi;
     CvRect roiRect;
     QDir dir;
+    //! Número de intentos para cada captura
+    int tries;
 };
 
 #endif // DEVICE_H
