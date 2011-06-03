@@ -1,0 +1,51 @@
+DESCRIPTION
+
+Images capture application for Wolken project. It is written in C++ using Qt4,
+OpenCV and V4L2 libraries.
+
+
+FURTHER INFORMATION
+
+  https://github.com/jroldan/
+
+
+LICENSE
+
+  See COPYING file
+
+
+INSTALL
+
+- Dependencies (packages names may change depending on your system)
+  in order to build wolken-capture from source:
+
+    g++ - The GNU C++ compiler
+    cmake - A cross-platform, open-source make system
+    libqt4-dev - Qt 4 development files
+    libqt4-sql - Qt 4 SQL module
+    libqt4-sql-mysql - Qt 4 MySQL database river
+    libcv-dev - Development files for libcv
+    libcvaux-dev - Development files for libcvaux
+    libhighgui-dev - Development files for libhighgui
+    libv4l-dev - video4linux libraries (development files)
+
+- Building the application:
+
+    $ mkdir build
+    $ cd build
+    $ cmake ..
+    $ make
+
+- Installing the application (as root):
+
+    # make install
+
+- Running the application:
+
+  $ wolken
+
+
+AUTHORS
+
+  See AUTHORS file
+
