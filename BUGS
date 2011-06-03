@@ -1,0 +1,62 @@
+########################################################################
+
+ERROR
+  Dispositivo de vídeo V4L2 se vuelve no disponible y se obtiene el error
+  'Cannot send after transport endpoint shutdown'.
+
+REPRODUCCIÓN
+  $ luvcview
+
+  luvcview 0.2.6
+
+  init kbd.
+  SDL information:
+    Video driver: fbcon
+    Hardware surfaces are available (64k video memory)
+  Device information:
+    Device path:  /dev/video0
+  ERROR opening V4L interface: Cannot send after transport endpoint shutdown
+
+POSIBLE EXPLICACIÓN
+  UVC con USB 1.0, con USB 2.0 no da el error.
+
+SOLUCION TEMPORAL
+  (como root) echo 0 > /sys/bus/usb/devices/usb1/authorized
+  (esperar unos segundos)
+  (como root) echo 1 > /sys/bus/usb/devices/usb1/authorized
+
+########################################################################
+
+ERROR
+  OpenCV lanza el error:
+  'Corrupt JPEG data: premature end of data segment'
+  al llamar a la función cvQueryFrame()
+
+POSIBLE SOLUCION
+  Recompilar OpenCV con la opción WITH_JPEG=OFF para que la imagen sea 
+  capturada en modo YUV y no en modo MJPEG.
+
+########################################################################
+
+ERROR
+
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+VIDIOC_QUERYCTRL: Input/output error
+HIGHGUI ERROR: V4L2: Pixel format of incoming image is unsupported by OpenCV
+Unable to stop the stream.: Bad file descriptor
+HIGHGUI ERROR: V4L: Pixel format of incoming image is unsupported by OpenCV
+No se pudo conectar con el dispositivo /dev/video0
+
+########################################################################
+
