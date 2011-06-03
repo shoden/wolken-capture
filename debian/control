@@ -1,14 +1,14 @@
-Source: wolken
+Source: wolken-capture
 Section: science
 Priority: extra
 Maintainer: Juan Roldan Ruiz <juan@shoden.es>
-Build-Depends: debhelper (>= 7), cmake, libqt4-dev, libqt4-sql, libqt4-sql-mysql, libcv-dev, libcvaux-dev, libhighgui-dev
+Build-Depends: debhelper (>= 7), cmake, libqt4-dev, libqt4-sql, libqt4-sql-mysql, libhighgui-dev
 Standards-Version: 3.8.4
-Homepage: http://www.shode.es
+Homepage: http://www.shoden.es
 
 Package: wolken-capture
 Architecture: i386
-Depends: mysql-server, ${shlibs:Depends}, ${misc:Depends}
+Depends: wolken, mysql-server, ${shlibs:Depends}, ${misc:Depends}
 Description: Aplicacion de captura de imágenes para wolken
  Aplicación de captura de imágenes para el proyecto Sistema de 
  observación de nubes del departamento de Física Aplicada de la

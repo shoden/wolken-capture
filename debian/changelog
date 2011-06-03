@@ -1,6 +1,23 @@
 wolken-capture (0.3.1-1) unstable; urgency=low
 
   * CMake config files
+  * Debian files
   * Capture tries are read from Qt global config file
 
  -- Juan Roldan Ruiz <juan@shoden.es>  Fri, 03 Jun 2011 13:30:14 +0200
+
+wolken-capture (0.3-1) unstable; urgency=low
+
+  * ROI is read from database
+  * Thumb height bug fixed
+
+ -- Juan Roldan Ruiz <juan@shoden.es>  Fri, 10 May 2011 13:39:35 +0200
+
+wolken-capture (0.2-1) unstable; urgency=low
+
+  * Settings are read from Qt global config file
+  * Region of interest(ROI) can be set
+  * Capture params can be set using V4L2 API
+  * Captures are recorded in database log table
+
+ -- Juan Roldan Ruiz <juan@shoden.es>  Fri, 07 Apr 2011 20:06:39 +0200

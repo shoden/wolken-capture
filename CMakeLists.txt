@@ -3,8 +3,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 # Project name
 PROJECT(wolken-capture)
 
-# Qt4 and Qt4 SQL module
-FIND_PACKAGE(Qt4 REQUIRED)
+# Qt4 (only QtCore) and Qt4 SQL module
+FIND_PACKAGE(Qt4 REQUIRED COMPONENTS QtCore)
 ADD_DEFINITIONS(${QT_DEFINITIONS})
 
 IF(QT_FOUND)
@@ -12,13 +12,14 @@ IF(QT_FOUND)
   MESSAGE(STATUS "Looking for Qt4 - found")
   IF(QT_QTSQL_FOUND)
     SET(QT_USE_QTSQL TRUE)
+    SET(QT_DONT_USE_QTGUI TRUE)
     INCLUDE_DIRECTORIES(${QT_QTSQL_INCLUDE_DIR})
     MESSAGE(STATUS "Looking for Qt4 SQL module - found")
   ELSE(QT_QTSQL_FOUND)
-    MESSAGE(FATAL ERROR "Qt SQL module missing.")
+    MESSAGE(FATAL_ERROR "Looking for Qt4 SQL module - not found")
   ENDIF(QT_QTSQL_FOUND) 
 ELSE(QT_FOUND)
-  MESSAGE(FATAL ERROR "Qt4 not found.")
+  MESSAGE(FATAL_ERROR "Looking for Qt4 - not found.")
 ENDIF(QT_FOUND)
 
 # Looking for V4L2
@@ -30,23 +31,7 @@ ELSE (V4L2_LIBRARY)
     MESSAGE(FATAL_ERROR "Looking for v4l2 - not found.")
 ENDIF (V4L2_LIBRARY)
 
-# Looking for OpenCV
-MESSAGE(STATUS "Looking for cv")
-FIND_LIBRARY(CV_LIBRARY cv)
-IF (CV_LIBRARY)
-    MESSAGE(STATUS "Looking for cv - found")
-ELSE (CV_LIBRARY)
-    MESSAGE(FATAL_ERROR "Looking for cv - not found.")
-ENDIF (CV_LIBRARY)
-
-MESSAGE(STATUS "Looking for cvaux")
-FIND_LIBRARY(CVAUX_LIBRARY cv)
-IF (CVAUX_LIBRARY)
-    MESSAGE(STATUS "Looking for cvaux - found")
-ELSE (CVAUX_LIBRARY)
-    MESSAGE(FATAL_ERROR "Looking for cvaux - not found.")
-ENDIF (CVAUX_LIBRARY)
-
+# Looking for OpenCV Highgui
 MESSAGE(STATUS "Looking for highgui")
 FIND_LIBRARY(HIGHGUI_LIBRARY highgui)
 IF (HIGHGUI_LIBRARY)
@@ -54,6 +39,9 @@ IF (HIGHGUI_LIBRARY)
 ELSE (HIGHGUI_LIBRARY)
     MESSAGE(FATAL_ERROR "Looking for highgui - not found.")
 ENDIF (HIGHGUI_LIBRARY)
+
+# Include OpenCV path
+INCLUDE_DIRECTORIES("/usr/include/opencv")
 
 # Adding src subdirectory
 ADD_SUBDIRECTORY(src)

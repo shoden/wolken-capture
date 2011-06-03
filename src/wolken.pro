@@ -1,9 +1,8 @@
 QT += sql
 QT -= gui
-LIBS += -lv4l2 \
-    -lcv \
+LIBS += \
+    -lv4l2 \
     -lhighgui \
-    -lcvaux \
     -lml \
     -lcxcore
 INCLUDEPATH += /usr/include/opencv

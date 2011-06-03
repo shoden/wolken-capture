@@ -16,7 +16,7 @@
 #include <libv4l2.h>
 
 // OpenCV
-#include <opencv/highgui.h>
+#include <highgui.h>
 
 
 class Device
