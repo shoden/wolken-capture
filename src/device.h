@@ -1,7 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-#include <common.h>
+#include "common.h"
 
 // C
 #include <errno.h>
@@ -16,7 +16,7 @@
 #include <libv4l2.h>
 
 // OpenCV
-#include <highgui.h>
+#include <opencv/highgui.h>
 
 
 class Device

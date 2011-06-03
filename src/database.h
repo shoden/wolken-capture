@@ -1,7 +1,7 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include <common.h>
+#include "common.h"
 
 // Qt SQL
 #include <QSqlDatabase>
