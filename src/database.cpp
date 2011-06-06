@@ -30,19 +30,20 @@ DataBase::DataBase()
 
 void DataBase::error(const QString &msg)
 {
-  std::cerr << msg.toUtf8().data() << std::endl;
+  cerr << msg.toUtf8().data() << endl;
   exit(EXIT_FAILURE);
 }
 
 QStringList DataBase::getParams()
 {
-   QSqlQuery query(QString("SELECT id, en FROM %1;").arg(paramsTable), db);
-   if( query.size() == -1 )
+   QSqlQuery query(QString("SELECT id, en FROM %1;").arg(
+                   paramsTable), db);
+   if(query.size() == -1)
        error( "No se pudo conectar con la base de datos" );
 
    QStringList plist;
 
-   while (query.next()) {
+   while(query.next()){
      QString id = query.value(0).toString();
      QString en = query.value(1).toString();
 
@@ -56,13 +57,13 @@ QStringList DataBase::getParams()
 Takes DataBase::getTakes()
 {
    QSqlQuery query(QString("SELECT * FROM %1;").arg(takesTable), db);
-   if( query.size() == -1 )
+   if(query.size() == -1)
        error( "No se pudo conectar con la base de datos" );
 
    // Tomas
-   while (query.next()) {
+   while(query.next()){
      // Comprobar que la toma está habilitada
-     if( query.value(1).toInt() == 1 ){
+     if(query.value(1).toInt() == 1){
        Params take;
 
        // ID y Habilitado
@@ -70,7 +71,7 @@ Takes DataBase::getTakes()
 
        // Parámetros
        QHashIterator<QString, QString> it(params);
-       while (it.hasNext()) {
+       while(it.hasNext()){
          it.next();
          int num = query.record().indexOf(it.key());
          QString p = query.value(num).toString();
@@ -90,11 +91,11 @@ Takes DataBase::getTakes()
 Params DataBase::getROI()
 {
    QSqlQuery query(QString("SELECT * FROM %1;").arg(roiTable), db);
-   if( query.size() == -1 )
+   if(query.size() == -1)
        error( "No se pudo conectar con la base de datos" );
 
    Params roiParams;
-   if(query.next()) {
+   if(query.next()){
      roiParams.insert("habilitado", query.value(0).toString());
      roiParams.insert("x1", query.value(1).toString());
      roiParams.insert("x2", query.value(2).toString());
@@ -107,13 +108,14 @@ Params DataBase::getROI()
 
 void DataBase::listTakes()
 {
-  for (int i = 0; i < takes.size(); i++) {
+  for(int i=0; i<takes.size(); i++){
     cout << "*** Toma" << i+1 << endl;
 
     QHashIterator<QString, QString> it(takes.at(i));
-    while (it.hasNext()) {
+    while(it.hasNext()){
         it.next();
-        cout << it.key().toUtf8().data() << ": " << it.value().toUtf8().data() << " # ";
+        cout << it.key().toUtf8().data() << ": " 
+             << it.value().toUtf8().data() << " # ";
     }
     cout << endl;
   }
@@ -121,7 +123,8 @@ void DataBase::listTakes()
 
 void DataBase::log(const QString &values)
 {
-   QSqlQuery query(QString("INSERT INTO %1 VALUES(%2);").arg(logTable).arg(values), db);
+   QSqlQuery query(QString("INSERT INTO %1 VALUES(%2);").arg(
+                   logTable).arg(values), db);
 
    query.exec();
 }

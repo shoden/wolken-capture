@@ -9,7 +9,8 @@ Homepage: http://www.shoden.es
 
 Package: wolken-capture
 Architecture: i386
-Depends: wolken, mysql-server, ${shlibs:Depends}, ${misc:Depends}
+Depends: wolken, mysql-server, imagemagick, 
+         ${shlibs:Depends}, ${misc:Depends}
 Description: Aplicacion de captura de imágenes para wolken
  Aplicación de captura de imágenes para el proyecto Sistema de 
  observación de nubes del departamento de Física Aplicada de la

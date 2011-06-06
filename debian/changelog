@@ -3,8 +3,10 @@ wolken-capture (0.3.1-1) unstable; urgency=low
   * CMake config files
   * Debian files
   * Capture tries are read from Qt global config file
+  * Fixing memory leak
+  * Code style
 
- -- Juan Roldan Ruiz <juan@shoden.es>  Fri, 03 Jun 2011 13:30:14 +0200
+ -- Juan Roldan Ruiz <juan@shoden.es>  Mon, 06 Jun 2011 17:47:52 +0200
 
 wolken-capture (0.3-1) unstable; urgency=low
 

@@ -60,3 +60,18 @@ No se pudo conectar con el dispositivo /dev/video0
 
 ########################################################################
 
+ERROR
+Al ejecutar repetidamente la aplicación en una máquina se produce una 
+notable pérdida de memoria principal(RAM). Este hecho (en inglés llamado
+memory leak) puede ser la causa de los errores antes registrados.
+
+Utilizando la aplicación Valgrind se ha mejorado el código y se ha 
+reducido considerablemente la pérdida de memoria, aunque se sigue 
+perdiendo memoria y los errores anteriores se siguen produciendo.
+
+NOTA
+Hay que revisar la memoria consumida (y posiblemente desperdiciada) por
+la aplicación web wolken-gallery.
+
+########################################################################
+

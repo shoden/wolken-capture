@@ -28,7 +28,10 @@ private:
   QString password;
   QString host;
   QString bbdd;
-  QString paramsTable, takesTable, logTable, roiTable;
+  QString paramsTable;
+  QString takesTable;
+  QString logTable;
+  QString roiTable;
   QSqlDatabase db;
 
   Params params;

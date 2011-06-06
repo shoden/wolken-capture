@@ -18,38 +18,41 @@
 // OpenCV
 #include <highgui.h>
 
-
 class Device
 {
 public:
-    Device(const QString &d);
+  Device(const QString &d);
+  ~Device();
 
-    int open();
-    void close();
-    void setDevice(const QString &d);
-    void getParams();
-    int setParam(const QString &name, int value);
-    void listParams();
-    void setROI(int x, int y, int width, int height);
-    void resetROI();
-    int capture(const QString &file, int thumbWidth, int thumbHeight);
-    bool setBaseDir(const QString &d);
-    void setTries(int t);
+  int open();
+  void close();
+  void setDevice(const QString &d);
+  void getParams();
+  int setParam(const QString &name, int value);
+  void listParams();
+  void setROI(int x, int y, int width, int height);
+  void resetROI();
+  int capture(const QString &file, int thumbWidth, int thumbHeight);
+  bool setBaseDir(const QString &d);
+  void setTries(int t);
 
 private:
-    //! Descriptor del dispositivo de vídeo
-    int fd;
-    //! Número del dispositivo de vídeo
-    QString device;
-    //! Lista de parámetros (nombre, id)
-    QMap<QString, int> params;
-    //! Dispositivo de vídeo
-    CvCapture *cap;
-    bool roi;
-    CvRect roiRect;
-    QDir dir;
-    //! Número de intentos para cada captura
-    int tries;
+  //! Descriptor del dispositivo de vídeo
+  int fd<F2>;
+  //! Número del dispositivo de vídeo
+  QString device;
+  //! Lista de parámetros (nombre, id)
+  QMap<QString, int> params;
+  //! Dispositivo de vídeo
+  CvCapture *cap;
+  //! Bandera para la región de interés
+  bool roi;
+  //! Rectángulo de la región de interés
+  CvRect roiRect;
+  //! Directorio base para guardar las capturas
+  QDir dir;
+  //! Número de intentos para cada captura
+  int tries;
 };
 
 #endif // DEVICE_H
