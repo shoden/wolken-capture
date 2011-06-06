@@ -1,0 +1,3 @@
+- Solve memory leak issue
+- Translate everything (comments, sql table names, etc.) to english
+- Log application errors(stderr) to database or file
