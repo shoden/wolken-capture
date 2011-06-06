@@ -17,18 +17,18 @@
 #  along with wolken-capture.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-SET(SOURCES database.cpp device.cpp main.cpp)
-SET(HEADERS common.h database.h device.h)
-
-INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src)
-
-ADD_EXECUTABLE(wolken ${SOURCES})
-
-TARGET_LINK_LIBRARIES(wolken 
-                        ${QT_LIBRARIES}
-                        ${QT_QTSQL_LIBRARIES} 
-                        ${V4L2_LIBRARY}
-                        ${HIGHGUI_LIBRARY}
-                     )
-
-INSTALL(TARGETS wolken DESTINATION bin)
+QT += sql
+QT -= gui
+LIBS += \
+    -lv4l2 \
+    -lhighgui \
+    -lml \
+    -lcxcore
+INCLUDEPATH += /usr/include/opencv
+HEADERS += device.h \
+    database.h \
+    common.h
+SOURCES += device.cpp \
+    main.cpp \
+    database.cpp
+TARGET=wolken
