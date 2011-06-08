@@ -27,14 +27,15 @@ int main(int argc, char *argv[])
   int c;
 
   // Archivo de configuración
-  QSettings settings(QSettings::SystemScope, "wolken", "wolken");
-  settings.beginGroup("Main");
-  QString d = settings.value("device", "/dev/video0").toString();
-  QString IMGPATH = settings.value("imgpath", "/home/juan/img/wolken/").toString();
-  int thumb_width = settings.value("thumb_width", 128).toInt();
-  int thumb_height = settings.value("thumb_height", 96).toInt();
-  int tries = settings.value("capture_tries", 10).toInt();
-  settings.endGroup();
+  QSettings *settings = new QSettings(QSettings::SystemScope, "wolken", "wolken");
+
+  settings->beginGroup("Main");
+  QString d = settings->value("device", "/dev/video0").toString();
+  QString IMGPATH = settings->value("imgpath", "/home/juan/img/wolken/").toString();
+  int thumb_width = settings->value("thumb_width", 128).toInt();
+  int thumb_height = settings->value("thumb_height", 96).toInt();
+  int tries = settings->value("capture_tries", 10).toInt();
+  settings->endGroup();
 
   // Procesar los argumentos
   while((c = getopt (argc, argv, "d:")) != -1)
@@ -72,8 +73,7 @@ int main(int argc, char *argv[])
 
   // Establecer la región de interés de la imagen
   Params roiParams = db->getROI();
-  bool roi = (roiParams.value("habilitado").compare("1") == 0) ? true : false;
-  if(roi){
+  if(roiParams.value("habilitado").compare("1") == 0){
     int roi_x = roiParams.value("x1").toInt();
     int roi_y = roiParams.value("y1").toInt();
     int roi_width = roiParams.value("x2").toInt() - roi_x;
@@ -119,6 +119,7 @@ int main(int argc, char *argv[])
   // Liberar memoria
   delete db;
   delete dev;
+  delete settings;
 
   return EXIT_SUCCESS;
 }
