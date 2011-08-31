@@ -5,7 +5,7 @@ Maintainer: Juan Roldan Ruiz <juan@shoden.es>
 Build-Depends: debhelper (>= 7), cmake, libqt4-dev, libqt4-sql,
                libqt4-sql-mysql, libhighgui-dev
 Standards-Version: 3.8.4
-Homepage: http://www.shoden.es
+Homepage: https://github.com/shoden/wolken
 
 Package: wolken-capture
 Architecture: i386
