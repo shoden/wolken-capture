@@ -52,7 +52,7 @@ ENDIF (V4L2_LIBRARY)
 
 # Looking for OpenCV Highgui
 MESSAGE(STATUS "Looking for highgui")
-FIND_LIBRARY(HIGHGUI_LIBRARY highgui)
+FIND_LIBRARY(HIGHGUI_LIBRARY opencv_highgui)
 IF (HIGHGUI_LIBRARY)
     MESSAGE(STATUS "Looking for highgui - found")
 ELSE (HIGHGUI_LIBRARY)
