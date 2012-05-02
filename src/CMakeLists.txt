@@ -28,6 +28,8 @@ TARGET_LINK_LIBRARIES(wolken
                         ${QT_LIBRARIES}
                         ${QT_QTSQL_LIBRARIES} 
                         ${V4L2_LIBRARY}
+                        ${OPENCV_CORE_LIBRARY}
+                        ${OPENCV_ML_LIBRARY}
                         ${HIGHGUI_LIBRARY}
                      )
 

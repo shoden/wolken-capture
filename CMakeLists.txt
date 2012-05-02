@@ -50,6 +50,24 @@ ELSE (V4L2_LIBRARY)
     MESSAGE(FATAL_ERROR "Looking for v4l2 - not found.")
 ENDIF (V4L2_LIBRARY)
 
+# Looking for OpenCV Core
+MESSAGE(STATUS "Looking for opencv core")
+FIND_LIBRARY(OPENCV_CORE_LIBRARY opencv_core)
+IF (OPENCV_CORE_LIBRARY)
+    MESSAGE(STATUS "Looking for opencv core - found")
+ELSE (OPENCV_CORE_LIBRARY)
+    MESSAGE(FATAL_ERROR "Looking for opencv core - not found.")
+ENDIF (OPENCV_CORE_LIBRARY)
+
+# Looking for OpenCV ml
+MESSAGE(STATUS "Looking for opencv ml")
+FIND_LIBRARY(OPENCV_ML_LIBRARY opencv_ml)
+IF (OPENCV_ML_LIBRARY)
+    MESSAGE(STATUS "Looking for opencv ml - found")
+ELSE (OPENCV_ML_LIBRARY)
+    MESSAGE(FATAL_ERROR "Looking for opencv ml - not found.")
+ENDIF (OPENCV_ML_LIBRARY)
+
 # Looking for OpenCV Highgui
 MESSAGE(STATUS "Looking for highgui")
 FIND_LIBRARY(HIGHGUI_LIBRARY opencv_highgui)
