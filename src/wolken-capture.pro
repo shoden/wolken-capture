@@ -21,9 +21,9 @@ QT += sql
 QT -= gui
 LIBS += \
     -lv4l2 \
-    -lhighgui \
-    -lml \
-    -lcxcore
+    -lopencv_highgui \
+    -lopencv_core \
+    -lopencv_ml 
 INCLUDEPATH += /usr/include/opencv
 HEADERS += device.h \
     database.h \

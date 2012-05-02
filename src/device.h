@@ -31,7 +31,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <linux/types.h>
-#include <linux/videodev.h>
+#include <libv4l1-videodev.h>
+#include <linux/videodev2.h>
 #include <libv4l2.h>
 
 // OpenCV
