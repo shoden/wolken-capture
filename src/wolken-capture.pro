@@ -22,8 +22,7 @@ QT -= gui
 LIBS += \
     -lv4l2 \
     -lopencv_highgui \
-    -lopencv_core \
-    -lopencv_ml 
+    -lopencv_core
 INCLUDEPATH += /usr/include/opencv
 HEADERS += device.h \
     database.h \
